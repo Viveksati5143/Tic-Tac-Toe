@@ -13,29 +13,31 @@ public class App {
     boolean gameOver = false;
     try (Scanner scanner = new Scanner(System.in)) {
         while (!gameOver) {
-          printBox(box);
-          System.out.print("Player " + player + " Enter: ");
-          int row = scanner.nextInt();
-          int col = scanner.nextInt();
-          System.out.println();
+            System.out.println("Tips: Players have to enter the index of their move.");
+            System.out.println("For row number 1-3 Also, for column number 1-3");
+            printBox(box);
+            System.out.print("Player " + player + " Enter: ");
+            int row = scanner.nextInt();
+            int col = scanner.nextInt();
+            System.out.println();
 
-          if (box[row][col] == ' ') {
-            box[row][col] = player; // place the element
-            gameOver = haveWon(box, player);
-            if (gameOver) {
-              System.out.println("Player " + player + " has won: ");
+            if (box[row][col] == ' ') {
+                box[row][col] = player; // place the element
+                gameOver = winner(box, player);
+                if (gameOver) {
+                System.out.println("Player " + player + " has won: ");
+                } else {
+                player = (player == 'X') ? 'O' : 'X';
+                }
             } else {
-              player = (player == 'X') ? 'O' : 'X';
+                System.out.println("Invalid move. Try again!");
             }
-          } else {
-            System.out.println("Invalid move. Try again!");
-          }
         }
     }
     printBox(box);
   }
 
-  public static boolean haveWon(char[][] box, char player) {
+  public static boolean winner(char[][] box, char player) {
     // check the rows
     for (int row = 1; row < box.length; row++) {
       if (box[row][1] == player && box[row][2] == player && box[row][3] == player) {
