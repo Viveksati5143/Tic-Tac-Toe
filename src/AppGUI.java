@@ -38,7 +38,6 @@ public class AppGUI implements ActionListener {
         resetButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 reset();
-                // quitButton.setText("");
             }
         });
 
@@ -62,6 +61,7 @@ public class AppGUI implements ActionListener {
             for (int col = 0; col < 3; col++) {
                 buttons[row][col].setText("");
                 box[row][col] = ' ';
+                buttons[row][col].setBackground(null); // reset color
             }
         }
         player = 'X';
@@ -80,14 +80,16 @@ public class AppGUI implements ActionListener {
                     if (box[row][col] == ' ') {
                         box[row][col] = player;
                         buttonClicked.setText(Character.toString(player));
+
+                        Color color = (player == 'X') ? Color.GREEN : Color.pink;
+                        buttonClicked.setBackground(color);
+
                         if (winner(box, player)) {
                             JOptionPane.showMessageDialog(null, "Player " + player + " has won!");
-                            // quitButton.setText("Player " + player + " has won!");
                             reset();
                         }
                         player = (player == 'X') ? '0' : 'X';
-                        Color color = (player == 'X') ? Color.GREEN : Color.pink;
-                        buttonClicked.setBackground(color);
+
                         turnLabel.setText("Turn: Player " + player);
                         quitButton.setText("Quit");
 
@@ -106,7 +108,6 @@ public class AppGUI implements ActionListener {
                         }
                         if (tie) {
                             JOptionPane.showMessageDialog(null, "Game Over! It's a tie!");
-                            // quitButton.setText("It's a tie!");
                             reset();
                         }
                     }              
